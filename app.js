@@ -7,13 +7,35 @@ const loadData = (url, page = 1) => {
     .then(respJson => {
         const info = respJson.info;
         const personajes = respJson.results;
-        console.log(info);
+        console.log(info.next);
+        console.log(info.prev);
+        if(!info.prev){
+            document.querySelector('#prev').classList.add('disabled')
+        } else {
+            document.querySelector('#prev').classList.remove('disabled')
+            document.querySelector('#prev').setAttribute('data-id', page - 1)
+        }
+        if(!info.next){
+            document.querySelector('#next').classList.add('disabled')
+        } else {
+            document.querySelector('#next').classList.remove('disabled')
+            document.querySelector('#next').setAttribute('data-id', page + 1)
+        }
         console.log(personajes);
         showCharacters(personajes);
     })
   }
 
+const navegacion = (e) => {
+    e.preventDefault();
+    if(e.target.classList.contains('btn')){
+        let page = e.target.getAttribute('data-id');
+        loadData(urlBase, page);
+    }
+}
   loadData(urlBase);
+
+document.querySelector('.botones').addEventListener('click', navegacion);
 
 const showCharacters = (personajes) => {
   /*  const ul = document.createElement('ul');
