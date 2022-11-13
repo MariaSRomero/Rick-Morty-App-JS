@@ -1,5 +1,5 @@
-import { showModal, navegacion, loadData} from './eventos.js';
-  
+import { showModal, navegacion, loadData, urlBase } from './eventos.js';
+
 loadData(urlBase);
-document.querySelector()
+document.querySelector('#respuesta').addEventListener('click', showModal);
 document.querySelector('.botones').addEventListener('click', navegacion);
